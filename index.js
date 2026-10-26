@@ -5,6 +5,11 @@ const registrationController = require('./controllers/registationController');
 const allUserController = require('./controllers/allUsersController');
 const deleteUserController = require('./controllers/deleteUserController');
 const editUserController = require('./controllers/editUserController');
+const loginController = require('./controllers/logInController');
+const userAddressController = require('./controllers/userAddressController');
+const adressController = require('./controllers/adressController');
+const forgetPasswordController = require('./controllers/forgetPasswordController');
+const resetPasswordController = require('./controllers/resetPasswordController');
 
 // mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mongodb.net/?appName=Cluster0
 // Middleware to parse JSON requests
@@ -18,13 +23,19 @@ mongoose.connect("mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mong
 
 
 app.post("/registration",registrationController);
-
+app.post("/login", loginController);
 
 app.get("/allusers", allUserController);
 
 app.post("/editUser/:id", editUserController);
 
 app.delete("/deleteUser/:id", deleteUserController);
+
+app.post("/user/address", userAddressController);
+app.get("/address", adressController);
+
+app.post("/forgetpassword", forgetPasswordController);
+app.post("/resetpassword", resetPasswordController);
 
 
 app.listen(8000, () => {
