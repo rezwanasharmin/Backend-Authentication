@@ -17,7 +17,22 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mongodb.net/?appName=Cluster0").then(() => {
+const mongoURI = "mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mongodb.net/?appName=Cluster0";
+
+// Middleware to ensure DB connection in serverless (Vercel)
+app.use(async (req, res, next) => {
+    if (mongoose.connection.readyState >= 1) {
+        return next();
+    }
+    try {
+        await mongoose.connect(mongoURI);
+        next();
+    } catch (err) {
+        res.status(500).send("Database connection error: " + err.message);
+    }
+});
+
+mongoose.connect(mongoURI).then(() => {
     console.log("Connected to MongoDB sucessfully" );
 }).catch((err) => {
     console.error("Error connecting to MongoDB", err);
