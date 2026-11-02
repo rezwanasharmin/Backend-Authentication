@@ -10,10 +10,12 @@ const userAddressController = require('./controllers/userAddressController');
 const adressController = require('./controllers/adressController');
 const forgetPasswordController = require('./controllers/forgetPasswordController');
 const resetPasswordController = require('./controllers/resetPasswordController');
+const cors = require('cors');
 
 // mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mongodb.net/?appName=Cluster0
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect("mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mongodb.net/?appName=Cluster0").then(() => {
     console.log("Connected to MongoDB sucessfully" );

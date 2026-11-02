@@ -3,13 +3,14 @@ const UserAddress = require('../models/userAdressModel');
 const userAddressController = async (req, res) => {
 
 
-    const { road, city, state, zip } = req.body;
+    const { road, city, state, zip, userId } = req.body;
 
     const newAddress = new UserAddress({
         road : road,
         city : city,
         state : state,
-        zip : zip
+        zip : zip,
+        userId : userId
     });
     await newAddress.save();
 
