@@ -2,6 +2,8 @@ import { useState } from 'react'
 import axios from 'axios'
 import './App.css'
 
+const API_BASE = "https://backend-authentication-gamma.vercel.app"
+
 function App() {
   const [activeTab, setActiveTab] = useState('register')
 
@@ -52,7 +54,7 @@ function App() {
   // Teacher's exact function name: handleSumbit
   const handleSumbit = (e) => {
     if (e) e.preventDefault()
-    axios.post("http://localhost:8000/registration", fromdata)
+    axios.post(`${API_BASE}/registration`, fromdata)
       .then((res) => {
         console.log("registation successfull")
         setMessage(res.data)
@@ -68,7 +70,7 @@ function App() {
   // Handle Login
   const handleLoginSubmit = (e) => {
     if (e) e.preventDefault()
-    axios.post("http://localhost:8000/login", loginData)
+    axios.post(`${API_BASE}/login`, loginData)
       .then((res) => {
         console.log("login response:", res.data)
         setMessage(res.data)
@@ -84,7 +86,7 @@ function App() {
   // Handle Forget Password
   const handleForgetSubmit = (e) => {
     if (e) e.preventDefault()
-    axios.post("http://localhost:8000/forgetpassword", forgetData)
+    axios.post(`${API_BASE}/forgetpassword`, forgetData)
       .then((res) => {
         console.log("forget password response:", res.data)
         setMessage(res.data)
@@ -99,7 +101,7 @@ function App() {
 
   // Handle Load Users
   const handleFetchUsers = () => {
-    axios.get("http://localhost:8000/allusers")
+    axios.get(`${API_BASE}/allusers`)
       .then((res) => {
         setUsers(res.data)
         setMessage(`Loaded ${res.data.length} users`)
@@ -114,7 +116,7 @@ function App() {
 
   // Handle Load Addresses with Populated User
   const handleFetchAddresses = () => {
-    axios.get("http://localhost:8000/address")
+    axios.get(`${API_BASE}/address`)
       .then((res) => {
         setAddresses(res.data)
         setMessage(`Loaded ${res.data.length} addresses with populated user data`)
@@ -141,7 +143,7 @@ function App() {
   // Submit User Edit
   const handleEditSubmit = (e) => {
     if (e) e.preventDefault()
-    axios.post(`http://localhost:8000/editUser/${editingUser._id}`, editFormData)
+    axios.post(`${API_BASE}/editUser/${editingUser._id}`, editFormData)
       .then((res) => {
         console.log("edit response:", res.data)
         setMessage(res.data)
@@ -159,7 +161,7 @@ function App() {
   // Handle Delete User
   const handleDeleteUser = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      axios.delete(`http://localhost:8000/deleteUser/${id}`)
+      axios.delete(`${API_BASE}/deleteUser/${id}`)
         .then((res) => {
           console.log("delete response:", res.data)
           setMessage(res.data)

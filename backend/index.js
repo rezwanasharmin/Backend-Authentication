@@ -24,6 +24,10 @@ mongoose.connect("mongodb+srv://node-2026:OC26wj1WTRjXrAf4@cluster0.7pvw29u.mong
 });
 
 
+app.get("/", (req, res) => {
+    res.send("Backend API is running successfully on Vercel!");
+});
+
 app.post("/registration",registrationController);
 app.post("/login", loginController);
 
